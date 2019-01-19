@@ -1,6 +1,21 @@
 import React, { Component } from 'react';
 
+const myContext = React.createContext();
+
 class Form extends Component {
+    handleSubmit = () => {
+        if (localStorage.getItem('place') == null) {
+            const list = [];
+            list.push(this.state.address);
+            localStorage.setItem('place', JSON.stringify(list));
+        } else {
+            const list = JSON.parse(localStorage.getItem('place'));
+            list.push(this.state.address);
+            localStorage.setItem('place', JSON.stringify(list));
+        }
+        this.setState({favouritesList: JSON.parse(localStorage.getItem('place'))});
+    }
+
     render() {
         return (
             <form>
